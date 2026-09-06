@@ -1,19 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,
+                 maximum-scale=1.0, minimum-scale=1.0,
+                 user-scalable=no, viewport-fit=cover">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
   <title>Principal Power Holiday - CBEO Behror</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #f7f7f8;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
+    }
+
+    #app-frame {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    #app {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
+
 <body>
-  <iframe 
-    src="https://script.google.com/a/~/macros/s/AKfycbyycd0mmnYjav-QpdwjlqnEhMF3Ij9_NSmC7H-vryoyL2DO3zqJq5bD1Vi36GiSjlUZQg/exec"
-    width="100%"
-    height="100%"
-    allowfullscreen="true"
-    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none;">
-  </iframe>
+  <div id="app-frame">
+    <iframe
+      id="app"
+      src="https://script.google.com/a/~/macros/s/AKfycbyycd0mmnYjav-QpdwjlqnEhMF3Ij9_NSmC7H-vryoyL2DO3zqJq5bD1Vi36GiSjlUZQg/exec"
+      title="Principal Power Holiday"
+      scrolling="no"
+      allow="clipboard-read; clipboard-write">
+    </iframe>
+  </div>
 
   <script>
-   
+    // Do NOT use requestFullscreen().
+    // Fullscreen is not needed and normally requires a user gesture.
+
+    // Block browser gesture zoom where supported.
+    ["gesturestart", "gesturechange", "gestureend"].forEach(function(type) {
+      document.addEventListener(type, function(e) {
+        e.preventDefault();
+      }, { passive: false });
+    });
+
+    // Prevent Ctrl/Cmd + wheel zoom.
+    document.addEventListener("wheel", function(e) {
+      if (e.ctrlKey || e.metaKey) e.preventDefault();
+    }, { passive: false });
+
+    // Prevent Ctrl/Cmd + + / - / 0 zoom shortcuts.
+    document.addEventListener("keydown", function(e) {
+      if ((e.ctrlKey || e.metaKey) &&
+          ["+", "-", "=", "0"].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
